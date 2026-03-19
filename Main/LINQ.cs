@@ -14,6 +14,23 @@ class LINQ
     {
         var numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
+        // to get first two elements
+        var two = numbers.Take(2);
+        Console.WriteLine(string.Join(", ", two)); // Output: 1, 2
+
+        // to skip first two elements and get the rest
+        var skipTwo = numbers.Skip(2).ToList();     
+    // Here, if ToArray() is used instead of ToList(), then we cannot use ForEach() method directly on the array, so we have to convert it to a list first using ToList() method, and then we can use ForEach() method to print the elements. 
+        skipTwo.ForEach(n => Console.WriteLine(n)); // Output: 3, 4, 5, 6, 7, 8, 9, 10 
+
+
+        // together with filtering and mapping
+        var res = numbers
+            .Where(n => n % 2 == 0) // Filter even numbers
+            .Select(n => n * n)     // Square them
+            .ToList();              // Convert to List
+        Console.WriteLine(string.Join(", ", res)); // Output: 4, 16, 36, 64, 100
+
         var students = new List<Student_>
         {
             new Student_("Chirag", 85, "CSE"),
@@ -25,7 +42,7 @@ class LINQ
 
 
         // ---------------------------------------------------
-        // 1. WHERE — Filter karo
+        // 1. WHERE — Filter karo (Sirf un elements ko rakhta hai jo condition satisfy karte hain)
         // Java : .filter(n -> n % 2 == 0)
         // C#   : .Where(n => n % 2 == 0)
         // ---------------------------------------------------
@@ -39,7 +56,7 @@ class LINQ
 
 
         // ---------------------------------------------------
-        // 2. SELECT — Transform karo
+        // 2. SELECT — Transform karo (Data ko change/map karna)
         // Java : .map(n -> n * 2)
         // C#   : .Select(n => n * 2)
         // ---------------------------------------------------
@@ -55,7 +72,7 @@ class LINQ
 
 
         // ---------------------------------------------------
-        // 3. ORDERBY / ORDERBYDESCENDING — Sort karo
+        // 3. ORDERBY / ORDERBYDESCENDING — Sort karo (Ascending/Descending)
         // Java : .sorted() / .sorted(Comparator.reverseOrder())
         // C#   : .OrderBy() / .OrderByDescending()
         // ---------------------------------------------------
